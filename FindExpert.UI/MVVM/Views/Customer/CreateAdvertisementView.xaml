@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:BaseContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:customerViewModels="clr-namespace:FindExpert.UI.MVVM.ViewModels.Customer"
+                      xmlns:base="clr-namespace:FindExpert.UI.MVVM.Views.Base"
+                      x:Class="FindExpert.UI.MVVM.Views.Customer.CreateAdvertisementView"
+                      x:ClassModifier="internal"
+                      x:DataType="customerViewModels:CreateAdvertisementViewModel">
+
+    <base:BaseContentPage.Content>
+        <Grid RowDefinitions="Auto, *, Auto" Margin="5">
+            <Label Grid.Row="0" Text="СОЗДАНИЕ ОБЪЯВЛЕНИЯ" FontSize="30" HorizontalOptions="Center"
+                   Margin="5, 5, 5, 15">
+            </Label>
+
+            <Grid Grid.Row="1" RowDefinitions="Auto, Auto, *">
+                <VerticalStackLayout Grid.Row="0" Margin="5">
+                    <Label Text="Название" />
+                    <Entry Text="{Binding Name, Mode=TwoWay}" HorizontalTextAlignment="Center"
+                           Placeholder="Введите название" />
+                    <Label Text="{Binding NameError}"
+                           IsVisible="{Binding HasNameError}"
+                           Style="{StaticResource ErrorLabelStyle}" />
+                </VerticalStackLayout>
+
+
+                <VerticalStackLayout Grid.Row="1" Margin="5">
+                    <Label Text="Описание" />
+                    <Editor Text="{Binding Description, Mode=TwoWay}"
+                            Placeholder="Введите описание"
+                            HeightRequest="100" />
+                    <Label Text="{Binding DescriptionError}"
+                           IsVisible="{Binding HasDescriptionError}"
+                           Style="{StaticResource ErrorLabelStyle}" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Row="2" Margin="5">
+                    <Label Text="Категория" />
+                    <Picker ItemsSource="{Binding Categories}"
+                            SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
+                            ItemDisplayBinding="{Binding Name}" />
+                    <Label Text="{Binding CategoryError}"
+                           IsVisible="{Binding HasCategoryError}"
+                           Style="{StaticResource ErrorLabelStyle}" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <Button Grid.Row="2" Text="СОЗДАТЬ" Command="{Binding CreateCommand}" Margin="5"></Button>
+        </Grid>
+    </base:BaseContentPage.Content>
+</base:BaseContentPage>

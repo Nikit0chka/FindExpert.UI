@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:BaseContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:FindExpert.UI.MVVM.Views.Base"
+                      xmlns:masterViewModels="clr-namespace:FindExpert.UI.MVVM.ViewModels.Master"
+                      xmlns:converters="clr-namespace:FindExpert.UI.Converters"
+                      xmlns:dto="clr-namespace:FindExpert.UI.Api.Models.Responses.Dto;assembly=FindExpert.UI.Api"
+                      Shell.TabBarIsVisible="False"
+                      x:Class="FindExpert.UI.MVVM.Views.Master.MasterAdvertisementShowView"
+                      x:DataType="masterViewModels:MasterAdvertisementShowViewModel"
+                      x:ClassModifier="internal">
+
+    <base:BaseContentPage.Content>
+        <Grid RowDefinitions="Auto, *, Auto, *, Auto">
+            <Label Grid.Row="0" Text="ПРОСМОТР ОБЪЯВЛЕНИЯ" FontSize="30" HorizontalOptions="Center" Margin="5" />
+
+            <Grid Grid.Row="1" RowDefinitions="Auto, Auto, *">
+                <VerticalStackLayout Grid.Row="0">
+                    <Label Text="Наименование" Margin="5" />
+                    <Entry Text="{Binding Name}" Margin="5" IsEnabled="False" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Row="1">
+                    <Label Text="Категория" Margin="5" />
+                    <Picker ItemsSource="{Binding Categories}"
+                            SelectedItem="{Binding SelectedCategory}"
+                            ItemDisplayBinding="{Binding Name}"
+                            IsEnabled="False"
+                            Margin="5" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Row="2">
+                    <Label Text="Описание" Margin="5" />
+                    <Entry Text="{Binding Description}" Margin="5" IsEnabled="False" />
+                </VerticalStackLayout>
+            </Grid>
+
+
+            <Label Grid.Row="2" Text="ОТКЛИКИ" FontSize="30" HorizontalOptions="Start" Margin="5" />
+
+            <Label Grid.Row="3"
+                   Text="Откликов нет"
+                   IsVisible="{Binding Responses.Count, Converter={converters:IntToBoolConverter}, ConverterParameter='invert'}"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Start"
+                   Margin="5" />
+
+            <ListView Grid.Row="3"
+                      ItemsSource="{Binding Responses}"
+                      HasUnevenRows="True"
+                      IsVisible="{Binding Responses.Count, Converter={converters:IntToBoolConverter}}">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="dto:ResponseInfo">
+                        <ViewCell>
+                            <Border Margin="1">
+                                <Label Text="{Binding Comment}" Margin="5" />
+                            </Border>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button Grid.Row="4"
+                    Text="Откликнуться"
+                    Command="{Binding AddResponseCommand}"
+                    Margin="10"
+                    HorizontalOptions="Fill"
+                    IsEnabled="{Binding CanResponse}" />
+        </Grid>
+    </base:BaseContentPage.Content>
+</base:BaseContentPage>

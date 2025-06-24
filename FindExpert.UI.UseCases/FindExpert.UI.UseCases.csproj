@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Ardalis.SharedKernel" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\FindExpert.UI.Api\FindExpert.UI.Api.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="CQRS\Authorization\" />
+    </ItemGroup>
+
+</Project>

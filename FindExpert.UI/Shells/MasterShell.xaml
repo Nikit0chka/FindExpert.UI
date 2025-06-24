@@ -1,0 +1,22 @@
+<Shell
+    x:Class="FindExpert.UI.Shells.MasterShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:masterViews="clr-namespace:FindExpert.UI.MVVM.Views.Master"
+    FlyoutBehavior="Disabled"
+    Title="FindExpert.UI">
+
+    <TabBar>
+        <Tab Title="Объявления">
+            <ShellContent
+                Route="advertisement-list"
+                ContentTemplate="{DataTemplate masterViews:MasterAdvertisementListView}" />
+        </Tab>
+
+        <Tab Title="Отклики">
+            <ShellContent
+                Route="response-list"
+                ContentTemplate="{DataTemplate masterViews:MasterResponseListView}" />
+        </Tab>
+    </TabBar>
+</Shell>

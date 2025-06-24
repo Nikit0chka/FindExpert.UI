@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:BaseContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:FindExpert.UI.MVVM.Views.Base"
+                      xmlns:customerViewModels="clr-namespace:FindExpert.UI.MVVM.ViewModels.Customer"
+                      xmlns:dto="clr-namespace:FindExpert.UI.Api.Models.Advertisement.Dto;assembly=FindExpert.UI.Api"
+                      xmlns:converters="clr-namespace:FindExpert.UI.Converters"
+                      x:Class="FindExpert.UI.MVVM.Views.Customer.AdvertisementListView"
+                      x:DataType="customerViewModels:AdvertisementListViewModel"
+                      x:ClassModifier="internal">
+
+    <base:BaseContentPage.Content>
+        <Grid RowDefinitions="Auto, *, Auto">
+            <Label Text="МОИ ОБЪЯВЛЕНИЯ" Grid.Row="0" FontSize="30" HorizontalOptions="Center" Margin="5, 5, 65,5"></Label>
+            <VerticalStackLayout Grid.Row="0" HorizontalOptions="End">
+                <Button
+                    Text="Профиль"
+                    Command="{Binding GoToProfileCommand}"
+                    Margin="5" />
+            </VerticalStackLayout>
+
+            <Label Grid.Row="1" Text="Объявлений нет"
+                   IsVisible="{Binding AdvertisementItems.Count, Converter={converters:IntToBoolConverter}, ConverterParameter='invert'}"
+                   HorizontalOptions="Center" VerticalOptions="Start" Margin="5" />
+
+            <ListView Grid.Row="1"
+                      ItemsSource="{Binding AdvertisementItems}"
+                      IsVisible="{Binding AdvertisementItems.Count, Converter={converters:IntToBoolConverter}}"
+                      HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="dto:AdvertisementItem">
+                        <ViewCell>
+                            <Border Margin="1">
+                                <Grid RowDefinitions="*, 2*, *" ColumnDefinitions="*, *">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type customerViewModels:AdvertisementListViewModel}}, 
+                                    Path=AdvertisementTappedCommand}"
+                                            CommandParameter="{Binding Id}" />
+                                    </Grid.GestureRecognizers>
+
+                                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Name}"
+                                           Margin="5, 5, 15, 5 ">
+                                    </Label>
+
+                                    <Button Grid.Row="0" Grid.Column="1"
+                                            Text="⋮"
+                                            FontSize="20"
+                                            HorizontalOptions="End"
+                                            VerticalOptions="Start"
+                                            Margin="5"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type customerViewModels:AdvertisementListViewModel}}, 
+                                                          Path=ShowActionsCommand}"
+                                            CommandParameter="{Binding Id}">
+                                    </Button>
+
+
+                                    <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                           Text="{Binding Description, Converter={converters:TextTrimmerConverter}, ConverterParameter=50}"
+                                           Margin="5">
+                                    </Label>
+                                    <Label Grid.Row="2" Grid.Column="0"
+                                           Text="{Binding CategoryName}"
+                                           Margin="5">
+                                    </Label>
+                                    <Label Grid.Row="2" Grid.Column="1" HorizontalOptions="End"
+                                           Text="{Binding ResponseCount,  StringFormat='Откликов: {0}'}" Margin="5">
+                                    </Label>
+                                </Grid>
+                            </Border>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button Grid.Row="2" Text="СОЗДАТЬ ОБЪЯВЛЕНИЕ" Command="{Binding GoToCreateAdvertisementCommand}"
+                    Margin="5">
+            </Button>
+        </Grid>
+    </base:BaseContentPage.Content>
+</base:BaseContentPage>

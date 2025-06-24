@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Shell
+    x:Class="FindExpert.UI.Shells.AuthorizationShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sharedViews="clr-namespace:FindExpert.UI.MVVM.Views.Shared"
+    FlyoutBehavior="Disabled"
+    Title="FindExpert.UI">
+
+    <TabBar>
+        <Tab Title="ВХОД">
+            <ShellContent Route="login" ContentTemplate="{DataTemplate sharedViews:LoginView}" />
+        </Tab>
+
+        <Tab Title="РЕГИСТРАЦИЯ">
+            <ShellContent Route="register" ContentTemplate="{DataTemplate sharedViews:RegisterView}" />
+        </Tab>
+    </TabBar>
+
+    <ShellContent Route="confirm-email" ContentTemplate="{DataTemplate sharedViews:ConfirmEmailView}" />
+</Shell>

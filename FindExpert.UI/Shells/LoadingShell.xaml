@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Shell
+    x:Class="FindExpert.UI.Shells.LoadingShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customer="clr-namespace:FindExpert.UI.MVVM.Views.Customer"
+    FlyoutBehavior="Disabled"
+    Title="FindExpert.UI" x:ClassModifier="internal">
+        
+    <ShellContent Route="show-advertisement" ContentTemplate="{DataTemplate customer:ShowAdvertisementView}" />
+</Shell>

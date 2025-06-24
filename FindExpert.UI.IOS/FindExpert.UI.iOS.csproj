@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0-ios</TargetFramework>
+        <SupportedOSPlatformVersion>15.0</SupportedOSPlatformVersion>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>FindExpert.UI.IOS</RootNamespace>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UseMaui>true</UseMaui>
+        <AssemblyName>FindExpert.UI.IOS</AssemblyName>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Maui.Controls"/>
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\FindExpert.UI\FindExpert.UI.csproj"/>
+    </ItemGroup>
+
+</Project>

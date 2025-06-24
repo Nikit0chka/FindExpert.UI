@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:BaseContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:FindExpert.UI.MVVM.Views.Base"
+                      xmlns:masterViewModels="clr-namespace:FindExpert.UI.MVVM.ViewModels.Master"
+                      xmlns:advertisementDto="clr-namespace:FindExpert.UI.Api.Models.Advertisement.Dto;assembly=FindExpert.UI.Api"
+                      xmlns:converters="clr-namespace:FindExpert.UI.Converters"
+                      x:Class="FindExpert.UI.MVVM.Views.Master.MasterAdvertisementListView"
+                      x:DataType="masterViewModels:MasterAdvertisementListViewModel"
+                      x:ClassModifier="internal">
+
+    <base:BaseContentPage.Content>
+        <Grid RowDefinitions="Auto, Auto, Auto, *">
+            <Label Text="ОБЪЯВЛЕНИЯ" Grid.Row="0" FontSize="30" HorizontalOptions="Center" Margin="5, 5, 15, 5"></Label>
+
+            <VerticalStackLayout Grid.Row="0" HorizontalOptions="End">
+                <Button
+                    Text="Профиль"
+                    Command="{Binding GoToProfileCommand}"
+                    Margin="5" />
+            </VerticalStackLayout>
+
+            <SearchBar Grid.Row="1"
+                       Placeholder="Поиск по названию или описанию"
+                       Text="{Binding SearchText}"
+                       SearchCommand="{Binding SearchCommand}" />
+
+            <Grid Grid.Row="2" ColumnDefinitions="*, *" Padding="5">
+                <Picker Title="Категория"
+                        ItemsSource="{Binding Categories}"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedItem="{Binding SelectedCategory}"
+                        Grid.Column="0"
+                        Margin="0,0,5,0" />
+
+                <Button Text="Сбросить фильтры"
+                        Command="{Binding ResetFiltersCommand}"
+                        Grid.Column="1" />
+            </Grid>
+
+            <RefreshView Grid.Row="3"
+                         IsRefreshing="{Binding IsRefreshing}"
+                         Command="{Binding RefreshCommand}">
+
+                <VerticalStackLayout>
+                    <Label Text="Объявлений не найдено"
+                           IsVisible="{Binding AdvertisementItems.Count, Converter={converters:IntToBoolConverter}, ConverterParameter='invert'}"
+                           HorizontalOptions="Center" VerticalOptions="Start" Margin="5" />
+
+                    <ListView ItemsSource="{Binding AdvertisementItems}"
+                              IsVisible="{Binding AdvertisementItems.Count, Converter={converters:IntToBoolConverter}}"
+                              HasUnevenRows="True"
+                              SelectionMode="None">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="advertisementDto:AdvertisementItem">
+                                <ViewCell>
+                                    <Border Margin="1">
+                                        <Grid RowDefinitions="*, 2*, *" ColumnDefinitions="*, *">
+                                            <Grid.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type masterViewModels:MasterAdvertisementListViewModel}}, 
+                                            Path=AdvertisementTappedCommand}"
+                                                    CommandParameter="{Binding Id}" />
+                                            </Grid.GestureRecognizers>
+
+                                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                                   Text="{Binding Name}"
+                                                   Margin="5" />
+
+                                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                                   Text="{Binding Description, Converter={converters:TextTrimmerConverter}, ConverterParameter=50}"
+                                                   Margin="5" />
+
+                                            <Label Grid.Row="2" Grid.Column="0"
+                                                   Text="{Binding CategoryName}"
+                                                   Margin="5" />
+
+                                            <Label Grid.Row="2" Grid.Column="1"
+                                                   Text="{Binding ResponseCount, StringFormat='Откликов: {0}'}"
+                                                   Margin="5" />
+                                        </Grid>
+                                    </Border>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+            </RefreshView>
+        </Grid>
+    </base:BaseContentPage.Content>
+</base:BaseContentPage>

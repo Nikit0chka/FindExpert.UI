@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:BaseContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:sharedViewModels="clr-namespace:FindExpert.UI.MVVM.ViewModels.Shared"
+                      xmlns:base="clr-namespace:FindExpert.UI.MVVM.Views.Base"
+                      xmlns:converters="clr-namespace:FindExpert.UI.Converters"
+                      x:Class="FindExpert.UI.MVVM.Views.Shared.LoginView"
+                      x:DataType="sharedViewModels:LoginViewModel" x:ClassModifier="internal">
+
+    <base:BaseContentPage.Resources>
+
+    </base:BaseContentPage.Resources>
+
+    <base:BaseContentPage.Content>
+        <VerticalStackLayout VerticalOptions="Center" Spacing="10" Margin="5">
+            <VerticalStackLayout>
+                <Label Text="Почта" />
+                <Entry Text="{Binding Email, Mode=TwoWay}"
+                       Placeholder="Введите email" />
+                <Label Text="{Binding EmailError}"
+                       Style="{StaticResource ErrorLabelStyle}"
+                       IsVisible="{Binding HasEmailError}" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Label Text="Пароль" />
+                <Entry Text="{Binding Password, Mode=TwoWay}"
+                       Placeholder="Введите пароль"
+                       IsPassword="True" />
+                <Label Text="{Binding PasswordError}"
+                       Style="{StaticResource ErrorLabelStyle}"
+                       IsVisible="{Binding HasPasswordError}" />
+            </VerticalStackLayout>
+
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                <Button Text="Я - МАСТЕР"
+                        Command="{Binding SelectMasterCommand}"
+                        BackgroundColor="{Binding IsMasterSelected, 
+                            Converter={converters:BoolToColorConverter}, 
+                            ConverterParameter='TrueColor=#FF5722;FalseColor=LightGray'}" />
+
+                <Button Text="Я - ЗАКАЗЧИК"
+                        Command="{Binding SelectCustomerCommand}"
+                        BackgroundColor="{Binding IsCustomerSelected, 
+                            Converter={converters:BoolToColorConverter}, 
+                            ConverterParameter='TrueColor=#2196F3;FalseColor=LightGray'}" />
+            </HorizontalStackLayout>
+
+            <Button Text="ВОЙТИ"
+                    Command="{Binding LoginCommand}"
+                    Margin="5" />
+        </VerticalStackLayout>
+    </base:BaseContentPage.Content>
+</base:BaseContentPage>

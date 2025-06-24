@@ -1,0 +1,152 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <SingleProject>true</SingleProject>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>FindExpert.UI</RootNamespace>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- Images -->
+        <MauiImage Include="Resources\Images\*"/>
+        <MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185"/>
+
+        <!-- Custom Fonts -->
+        <MauiFont Include="Resources\Fonts\*"/>
+
+        <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+        <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Maui" />
+        <PackageReference Include="CommunityToolkit.Maui.Markup" />
+        <PackageReference Include="CommunityToolkit.Mvvm" />
+        <PackageReference Include="Microsoft.Maui.Controls"/>
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\FindExpert.UI.Api\FindExpert.UI.Api.csproj" />
+      <ProjectReference Include="..\FindExpert.UI.UseCases\FindExpert.UI.UseCases.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <MauiXaml Update="MVVM\Views\Shared\LoginView.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="Shells\CustomerShell.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="Shells\AuthorizationShell.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="Controls\AlertPopupControl\AlertPopup.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="MVVM\Views\Customer\AdvertisementListView.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="MVVM\Views\Customer\CreateAdvertisementView.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="MVVM\Views\Customer\EditAdvertisementView.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="MVVM\Views\Customer\ShowAdvertisementView.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="Shells\LoadingShell.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="MVVM\Views\Master\MasterAdvertisementListView.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="MVVM\Views\Master\MasterAdvertisementShowView.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="MVVM\Views\Master\MasterResponseListView.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="MVVM\Views\Customer\ProfileView.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="MVVM\Views\Master\MasterProfileView.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="MVVM\Views\Shared\LoginView.xaml.cs">
+        <DependentUpon>AuthorizationView.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Shells\CustomerShell.xaml.cs">
+        <DependentUpon>AppShell.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Shells\AuthorizationShell.xaml.cs">
+        <DependentUpon>AuthorizationShell.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Controls\AlertPopupControl\AlertPopup.xaml.cs">
+        <DependentUpon>AlertPopup.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Resources\Strings\Strings.ru.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Strings.ru.resx</DependentUpon>
+      </Compile>
+      <Compile Update="MVVM\Views\Customer\AdvertisementListView.xaml.cs">
+        <DependentUpon>AdvertisementsListView.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="MVVM\Views\Customer\CreateAdvertisementView.xaml.cs">
+        <DependentUpon>CreateAdvertisementView.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="MVVM\Views\Customer\EditAdvertisementView.xaml.cs">
+        <DependentUpon>EditAdvertisiementView.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="MVVM\Views\Customer\ShowAdvertisementView.xaml.cs">
+        <DependentUpon>ShowAdvertisementView.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Shells\LoadingShell.xaml.cs">
+        <DependentUpon>LoadingShell.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="MVVM\Views\Master\MasterAdvertisementListView.xaml.cs">
+        <DependentUpon>AdvertisementListView.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="MVVM\Views\Master\MasterAdvertisementShowView.xaml.cs">
+        <DependentUpon>MasterAdvertisementShowView.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="MVVM\Views\Master\MasterResponseListView.xaml.cs">
+        <DependentUpon>MasterResponseListView.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="MVVM\Views\Customer\ProfileView.xaml.cs">
+        <DependentUpon>ProfileView.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="MVVM\Views\Master\MasterProfileView.xaml.cs">
+        <DependentUpon>ProfileView.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Resources\Strings\Strings.ru.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Strings.ru.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+</Project>

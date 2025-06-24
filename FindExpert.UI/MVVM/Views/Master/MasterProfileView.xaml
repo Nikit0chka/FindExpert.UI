@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:BaseContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:FindExpert.UI.MVVM.Views.Base"
+                      xmlns:masterViewModels="clr-namespace:FindExpert.UI.MVVM.ViewModels.Master"
+                      Shell.TabBarIsVisible="False"
+                      x:Class="FindExpert.UI.MVVM.Views.Master.MasterProfileView"
+                      x:DataType="masterViewModels:MasterProfileViewModel"
+                      x:ClassModifier="internal">
+
+    <base:BaseContentPage.Content>
+        <Grid RowDefinitions="Auto, *, Auto">
+            <Label Text="ПРОФИЛЬ" Grid.Row="0" FontSize="30" HorizontalOptions="Center"></Label>
+
+            <Grid Grid.Row="1"  RowDefinitions="Auto, Auto, Auto">
+                <Label Grid.Row="0" Text="Потенциальное имя мастера"></Label>
+                <Label Grid.Row="1" Text="Потенциальные данные геолокации мастера"></Label>
+                <Label Grid.Row="2" Text="Потенциальные документы мастера"></Label>
+            </Grid>
+
+            <Button Grid.Row="2" Text="ВЫЙТИ" Command="{Binding LogoutCommand}"
+                    Margin="5">
+            </Button>
+        </Grid>
+    </base:BaseContentPage.Content>
+</base:BaseContentPage>

@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:BaseContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:FindExpert.UI.MVVM.Views.Base"
+                      xmlns:masterViewModels="clr-namespace:FindExpert.UI.MVVM.ViewModels.Master"
+                      xmlns:converters="clr-namespace:FindExpert.UI.Converters"
+                      xmlns:dto="clr-namespace:FindExpert.UI.Api.Models.Responses.Dto;assembly=FindExpert.UI.Api"
+                      x:Class="FindExpert.UI.MVVM.Views.Master.MasterResponseListView"
+                      x:DataType="masterViewModels:MasterResponseListViewModel"
+                      x:ClassModifier="internal">
+
+    <base:BaseContentPage.Content>
+        <Grid RowDefinitions="Auto, *, Auto">
+            <Label Text="МОИ ОТКЛИКИ" Grid.Row="0" FontSize="30" HorizontalOptions="Center" Margin="5, 5, 15,5"></Label>
+            <VerticalStackLayout Grid.Row="0" HorizontalOptions="End">
+                <Button
+                    Text="Профиль"
+                    Command="{Binding GoToProfileCommand}"
+                    Margin="5" />
+            </VerticalStackLayout>
+
+            <Label Text="Откликов нет" Grid.Row="1"
+                   IsVisible="{Binding Responses.Count, Converter={converters:IntToBoolConverter}, ConverterParameter='invert'}"
+                   HorizontalOptions="Center" VerticalOptions="Start" Margin="5" />
+
+            <ListView Grid.Row="1" ItemsSource="{Binding Responses}"
+                      IsVisible="{Binding Responses.Count, Converter={converters:IntToBoolConverter}}"
+                      HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="dto:ResponseInfo">
+                        <ViewCell>
+                            <Border Margin="1">
+                                <Grid RowDefinitions="*, auto">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type masterViewModels:MasterResponseListViewModel}}, 
+                                    Path=AdvertisementTappedCommand}"
+                                            CommandParameter="{Binding Id}" />
+                                    </Grid.GestureRecognizers>
+
+                                    <Button Grid.Row="0"
+                                            Text="⋮"
+                                            FontSize="20"
+                                            HorizontalOptions="End"
+                                            VerticalOptions="Start"
+                                            Margin="5"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type masterViewModels:MasterResponseListViewModel}}, 
+                                                          Path=ShowActionsCommand}"
+                                            CommandParameter="{Binding Id}">
+                                    </Button>
+
+
+                                    <Label Grid.Row="0"
+                                           Text="{Binding Comment, Converter={converters:TextTrimmerConverter}, ConverterParameter=50}"
+                                           Margin="5">
+                                    </Label>
+
+                                    <Label Grid.Row="1"
+                                           Text="{Binding ResponseDate}"
+                                           Margin="5" HorizontalOptions="End">
+                                    </Label>
+                                </Grid>
+                            </Border>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </base:BaseContentPage.Content>
+</base:BaseContentPage>
